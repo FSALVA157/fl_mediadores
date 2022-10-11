@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:fl_mediadores_app/widgets/center_widget/center_widget_clipper.dart';
+import 'package:fl_mediadores_app/widgets/center_widget/center_widget_painter.dart';
 import 'package:flutter/material.dart';
 
 class CenterWidget extends StatelessWidget {
@@ -61,6 +62,9 @@ class CenterWidget extends StatelessWidget {
 
     return Stack(
       children: [
+        CustomPaint(
+            painter: CenterWidgetPainter(path: path),
+        ),
         ClipPath(
           clipper: CenterWidgetClipper(path: path),
           child: BackdropFilter(
