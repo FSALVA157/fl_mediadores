@@ -31,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
               left: 30,
               child: Container(
                 width: size.width * 0.7,
-                child: Text('Bienvenido!', style: TextStyle(fontSize: 40),maxLines: 4, overflow: TextOverflow.clip, textAlign: TextAlign.justify,))
+                child: Text('Bienvenido Mediador!', style: TextStyle(fontSize: 40),maxLines: 4, overflow: TextOverflow.clip, textAlign: TextAlign.justify,))
               ),
             _formBody()
 
@@ -57,24 +57,25 @@ class _formBody extends StatelessWidget {
 
       child: Center(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          //crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(height: size.height * 0.3,),
             Container(
               //height: size.height * 0.5,
-              //width: size.width * 0.8,              
+              width: double.infinity,              
               child: Form(
                 child: Column(
                   children: [
-                    inputField('Email / Username', Ionicons.glasses),
+                    inputField('Email / Username', Ionicons.mail_outline),
                     inputField('Password', Ionicons.lock_closed_outline),
-                    loginButton('Log In'),
+                    loginButton('Log In', ()=>Navigator.pushReplacementNamed(context, 'home')),
                     forgotPassword(),
                   ],
                 )
                 ),
             ),
-            SizedBox(height: size.height * 0.3,)
+            SizedBox(height: size.height * 0.2,)
 
           ],
         ),

@@ -31,15 +31,17 @@ import 'package:flutter/material.dart';
     );
   }
 
-  Widget loginButton(String title) {
+  Widget loginButton(String title, Function action) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 135, vertical: 16),
+      padding: const EdgeInsets.symmetric(
+        //horizontal: 135,
+        vertical: 30),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () => action(),
         style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(vertical: 14),
+          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 50),
           shape: const StadiumBorder(),
-          primary: kSecondaryColor,
+          backgroundColor: kSecondaryColor,
           elevation: 8,
           shadowColor: Colors.black87,
         ),
