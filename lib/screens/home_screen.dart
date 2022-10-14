@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:fl_mediadores_app/utiles/constants.dart';
 //import 'package:fl_mediadores_app/widgets/widgets.dart';
 
@@ -47,8 +49,8 @@ class _customBody extends StatelessWidget {
         SliverList(
           delegate: SliverChildListDelegate(
             [
-              _bodyOptions(),              
-              SizedBox(height: 1000,)
+              _bodyOptions(size),              
+              SizedBox(height: 300,)
             ]
           )
           )
@@ -56,17 +58,96 @@ class _customBody extends StatelessWidget {
     );
   }
 
-  ExpansionPanelList _bodyOptions(){
-          return  ExpansionPanelList.radio(
+  ExpansionPanelList _bodyOptions(Size size){
+          return   ExpansionPanelList.radio(
             animationDuration: Duration(milliseconds: 500),
             expandedHeaderPadding: EdgeInsets.all(10),
             elevation: 3,
             children: [
-              //ExpansionPanelRadio(value: value, headerBuilder: headerBuilder, body: body)
+              ExpansionPanelRadio(
+                canTapOnHeader: true,
+                value: "pendientes",
+                headerBuilder: (context, isExpanded) {
+                  return  Padding(
+                    padding: const  EdgeInsets.symmetric(vertical: 20),
+                    child: ListTile(
+                      leading: const Icon(Ionicons.aperture_outline, size: 50, color: kTerceryColor,),
+                      title: Text('Trámites en Curso', style:Theme.of(context).textTheme.headline5),                      
+                    ),
+                    );
+                },
+                body: Container(
+                  height: size.height * 0.3,
+                  child: ListView(
+                    physics: BouncingScrollPhysics(),
+                    children: [
+                      _listTileCaso(indice: "1", titulo: "Alimentos y/o Cuidado Personal", subtitulo: "Sra- Lucila Balberdi vs Sr Ciro Gómez"),
+                      _listTileCaso(indice: "2", titulo: "Régimen de Visitas", subtitulo: "Sra Ramona Vilte vs Sr Esteban Zúñiga"),
+                      _listTileCaso(indice: "3", titulo: "Accidente de Tránsito", subtitulo: "Sra Lorena Rodríguez vs Sr Leopoldo Morales"),
+                    
+                    ],
+                  ),
+                )
+                ),
+                 ExpansionPanelRadio(
+                canTapOnHeader: true,
+                value: "resueltos",
+                headerBuilder: (context, isExpanded) {
+                  return  Padding(
+                    padding: const  EdgeInsets.symmetric(vertical: 20),
+                    child: ListTile(
+                      leading: const Icon(Ionicons.documents_outline, size: 50, color: kTerceryColor,),
+                      title: Text('Trámites Cerrados', style:Theme.of(context).textTheme.headline5),                      
+                    ),
+                    );
+                },
+                body: Container(
+                  height: size.height * 0.3,
+                  child: ListView(
+                    physics: BouncingScrollPhysics(),
+                    children: [
+                      _listTileCaso(indice: "1", titulo: "Cuidado Personal", subtitulo: "Sra- Lucila Balberdi vs Sr Ciro Gómez"),
+                      _listTileCaso(indice: "2", titulo: "Régimen de Visitas", subtitulo: "Sra Ramona Vilte vs Sr Esteban Zúñiga"),
+                      _listTileCaso(indice: "3", titulo: "Resarcimiento por daños y Perjuicios", subtitulo: "Sra Lorena Rodríguez vs Sr Leopoldo Morales"),
+                    
+                    ],
+                  ),
+                )
+                )
             ],
           );
     }
 
+}
+
+class _listTileCaso extends StatelessWidget {
+  final String indice;
+  final String titulo;
+  final String subtitulo;
+
+  const _listTileCaso({
+    Key? key, required this.indice, required this.titulo, required this.subtitulo,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return  ListTile(
+      contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+      leading: CircleAvatar(
+        backgroundColor: Color(0xff764abc),
+        child: Text(indice, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+      ),
+      title: Text(titulo,
+       style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+      subtitle: Text(subtitulo,
+       style: TextStyle(color: Colors.black87, fontSize: 12)),
+       trailing: IconButton(
+        onPressed: (){
+          Navigator.pushNamed(context, "detail");
+        },
+        icon: Icon(Ionicons.ellipsis_vertical_outline)),
+                    );
+  }
 }
 
 class AppBarSecondary extends SliverPersistentHeaderDelegate {
