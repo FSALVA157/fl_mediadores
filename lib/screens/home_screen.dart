@@ -80,7 +80,7 @@ class _customBody extends StatelessWidget {
                   height: size.height * 0.3,
                   child: ListView(
                     physics: BouncingScrollPhysics(),
-                    children: [
+                    children: const [
                       _listTileCaso(indice: "1", titulo: "Alimentos y/o Cuidado Personal", subtitulo: "Sra- Lucila Balberdi vs Sr Ciro Gómez"),
                       _listTileCaso(indice: "2", titulo: "Régimen de Visitas", subtitulo: "Sra Ramona Vilte vs Sr Esteban Zúñiga"),
                       _listTileCaso(indice: "3", titulo: "Accidente de Tránsito", subtitulo: "Sra Lorena Rodríguez vs Sr Leopoldo Morales"),
@@ -132,20 +132,20 @@ class _listTileCaso extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  ListTile(
-      contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+      contentPadding:const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
       leading: CircleAvatar(
-        backgroundColor: Color(0xff764abc),
+        backgroundColor: const Color(0xff764abc),
         child: Text(indice, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
       ),
       title: Text(titulo,
-       style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+       style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
       subtitle: Text(subtitulo,
-       style: TextStyle(color: Colors.black87, fontSize: 12)),
+       style: const TextStyle(color: Colors.black87, fontSize: 12)),
        trailing: IconButton(
         onPressed: (){
-          Navigator.pushNamed(context, "detail");
+          Navigator.pushNamed(context, "detail", arguments: titulo);
         },
-        icon: Icon(Ionicons.ellipsis_vertical_outline)),
+        icon: const Icon(Ionicons.ellipsis_vertical_outline)),
                     );
   }
 }

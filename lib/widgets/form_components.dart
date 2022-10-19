@@ -119,4 +119,43 @@ import 'package:flutter/material.dart';
     );
   }
 
-
+Widget inputFormField(TextInputType? kType, String hint, IconData iconData) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 36, vertical:20),
+      child: SizedBox(
+        height: 50,
+        child: Material(
+          elevation: 0,
+          //shadowColor: Colors.black87,
+          color: Colors.transparent,
+          //borderRadius: BorderRadius.circular(30),
+          child: TextFormField(
+            style: TextStyle(color: Colors.white),
+            keyboardType: (kType == null)? null: kType,
+            textAlignVertical: TextAlignVertical.bottom,
+                        
+            decoration: InputDecoration(
+              floatingLabelStyle: const TextStyle(color: Colors.white),  
+              enabledBorder: const UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.white),                
+              ),
+              focusedBorder:  const UnderlineInputBorder(
+                  borderSide:  BorderSide(color: Colors.white,
+                  width: 5
+                  )
+              ),
+              border: const UnderlineInputBorder(),
+              //  OutlineInputBorder(
+              //   borderRadius: BorderRadius.only(topRight:  Radius.circular(10), bottomLeft:  Radius.circular(10)),                
+                
+              // ),
+              contentPadding: EdgeInsets.all(10),
+              hintText: hint,
+              hintStyle: TextStyle(color: Colors.grey[400]),
+              icon: Icon(iconData, color: Colors.yellow),
+            ),
+          ),
+        ),
+      ),
+    );
+  }

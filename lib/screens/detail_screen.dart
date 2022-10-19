@@ -1,4 +1,10 @@
 
+import 'dart:ui';
+
+import 'package:fl_mediadores_app/screens/detail_labels/autor_screen.dart';
+import 'package:fl_mediadores_app/screens/detail_labels/others_screen.dart';
+import 'package:fl_mediadores_app/screens/screens.dart';
+import 'package:fl_mediadores_app/utiles/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -14,17 +20,19 @@ class DetailScreen extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+    final String titulo = ModalRoute.of(context)?.settings.arguments.toString() ?? "Trámite en Curso";
+
     List<Option> options = [
-      Option(icono: Ionicons.library_sharp, title: "Detalle General"),
-      Option(icono: Ionicons.man_sharp, title: "Solicitante"),
-      Option(icono: Ionicons.people_sharp, title: "Agregados"),
+      Option(icono: Ionicons.library_sharp, title: "Detalle General", screenTab: GeneralScreen() ),
+      Option(icono: Ionicons.man_sharp, title: "Solicitante", screenTab: AutorScreen()),
+      Option(icono: Ionicons.people_sharp, title: "Agregados", screenTab: OthersScreen()),
   ];
 
 
     return DefaultTabController(
       length: options.length,
       child: Scaffold(
-        appBar: _appBarTab(options),
+        appBar: _appBarTab(options, titulo),
         body: _BodyTab(data: options),
       )
       );
@@ -50,7 +58,7 @@ class _BodyTab extends StatelessWidget {
     List<Widget >MiMetodo() {
       List<Widget> auxiliar = [];      
         data.forEach((element) {
-        auxiliar.add(Center(child: Text(element.title),)) ;
+        auxiliar.add(element.screenTab,) ;
       });
       return auxiliar;
       }
@@ -58,12 +66,23 @@ class _BodyTab extends StatelessWidget {
   
 
 
-_appBarTab(options){
+_appBarTab(options, String titulo){
   
-    return AppBar(
-      bottom: TabBar(
-        tabs: _headersTab(options) 
-        ),
+    return PreferredSize(
+      preferredSize: Size.fromHeight(140),
+      child: AppBar(
+        backgroundColor: kPrimaryColor,
+        elevation: 0,
+        centerTitle: true,
+        title: Text(titulo, maxLines: 2, textAlign: TextAlign.start,),
+        titleTextStyle: TextStyle(fontFamily: "Montserrat", fontWeight: FontWeight.bold, fontSize: 22, overflow: TextOverflow.ellipsis),
+        bottom: TabBar(
+          indicatorSize: TabBarIndicatorSize.tab,
+          indicatorWeight: 8.0,
+          
+          tabs: _headersTab(options) 
+          ),
+      ),
     );
   }
 
@@ -98,8 +117,9 @@ class Option{
   
   final IconData icono;  
   final String title;
+  final Widget screenTab;
 
-  Option({required this.icono, required this.title});
+  Option({required this.icono, required this.title, required this.screenTab});
 
  
 
