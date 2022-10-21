@@ -1,10 +1,12 @@
 
 import 'package:fl_mediadores_app/models/persona_model.dart';
+import 'package:fl_mediadores_app/providers/others_provider.dart';
 import 'package:fl_mediadores_app/widgets/form_components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:provider/provider.dart';
 import 'package:stylish_dialog/stylish_dialog.dart';
 
 
@@ -50,6 +52,8 @@ class _AddPersonButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final othersProvider = Provider.of<OthersProvider>(context);
+
     return FloatingActionButton(
       backgroundColor: Colors.deepPurple,
        onPressed: () async {
@@ -101,19 +105,21 @@ class _AddPersonButton extends StatelessWidget {
             context: context,
             alertType: StylishDialogType.SUCCESS,
             animationLoop: false,
-            titleText: 'Persona Autorizada!!',
+            titleText: 'Se ha Agregado una Persona al Expediente!!',
             dismissOnTouchOutside: true,
           );
 
           //dialog.show();
           //providerDni.getData(array);
-          String dato_dni = array[4].toString();
-          array.forEach((element) {
-            print(element);
-          });
+          // String dato_dni = array[4].toString();
+          // array.forEach((element) {
+          //   print(element);
+          // });
+          othersProvider.addPersonFromBarCode(array);
           //var servicio = VisitaService();
 
           try {
+            
             //PersonalElement visita = await servicio.getByDni(dato_dni);
             //var bandera = await dataProvider.verificarProhibida(dato_dni);            
             //if(bandera){
@@ -160,18 +166,18 @@ class _listaPersonas extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final List<PersonaModel> personasList = [
-      PersonaModel("María Laura", "García",DateTime.parse("1990-05-01"), 28163897),
-      PersonaModel("Santiago Manuel", "Orozco",DateTime.parse("2000-09-21"), 30125321)
-    ];
+    final othersProvider = Provider.of<OthersProvider>(context);
+    // final List<PersonaModel> personasList = [
+    //   PersonaModel("María Laura", "García",DateTime.parse("1990-05-01"), 28163897),
+    //   PersonaModel("Santiago Manuel", "Orozco",DateTime.parse("2000-09-21"), 30125321)
+    // ];
 
 
     return ExpansionPanelList.radio(
         animationDuration: Duration(milliseconds: 500),
         expandedHeaderPadding: EdgeInsets.all(10),
         elevation: 3,
-        children: _expansionPanelChildren(personasList),
+        children: _expansionPanelChildren(othersProvider.personas),
 
     );
   }

@@ -21,5 +21,6 @@ class OthersProvider extends ChangeNotifier{
   addPersonFromBarCode(List<String> data){
     final nuevo = PersonaModel(data[2],data[1] , DateTime.parse("1990-05-01"), int.parse(data[4]));
     personas.add(nuevo);
+    notifyListeners();
   }
 }
